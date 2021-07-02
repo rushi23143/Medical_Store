@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>MedicalStore</title>
+  </head>
+  <body>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Manage Store</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'manage_medicine' %}">Manage Medicine</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+        </li>
+    </ul>
+
+    <br>
+      <center><h2>Manage Store</h2></center>
+     <a class="container btn btn-primary" style="margin-left:585px; color:white; width: 130px;" href="{% url 'add_store' %}">Add Store</span></a><br><br>
+      <table class="table table-hover" style="color: rgb(121, 5, 5); border: rgb(70, 102, 5);">
+        <thead>
+        <tr style="background-color: rgb(235, 95, 95);">
+            <th>Action</th>
+            <th>Store Name</th>
+            <th>Username</th>
+            <th>Store Licence</th>
+            <th>Store Type</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for var in store_list %}
+        <tr>
+            <td>
+              <a href="{% url 'editstore' var.id %}" class="btn btn-warning btn-sm">Edit</a>
+              <form action="{% url 'deletestore' var.id %}" method="post" class="d-inline">
+                {% csrf_token %}
+                <input type="submit" class="btn btn-danger" value="Delete">
+              </form>             
+            </td>
+            <td>{{var.store_name}}</td>
+            <td>{{var.username}}</td>
+            <td>{{var.store_licence}}</td>
+            <td>{{var.store_type}}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    
+  </body>
+</html>
